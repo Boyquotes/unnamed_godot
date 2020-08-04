@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/monster.png-e04be21d50319c6d2d0852027cc19d51.stex"
+path="res://.import/book_legs.png-79aadf67572d76b550d839ff25ad0c48.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/monster.png"
-dest_files=[ "res://.import/monster.png-e04be21d50319c6d2d0852027cc19d51.stex" ]
+source_file="res://resources/book_legs.png"
+dest_files=[ "res://.import/book_legs.png-79aadf67572d76b550d839ff25ad0c48.stex" ]
 
 [params]
 
