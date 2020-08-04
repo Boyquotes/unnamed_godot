@@ -1,8 +1,20 @@
 extends Node2D
 
-func _on_button_pressed():
+var game_time;
+var spawn_times = [10, 150, 300, 500];
+
+func _ready():
+	game_time = 0;
+
+func _process(_delta):
+	game_time += 1
+	if spawn_times.has(game_time):
+		spawn_book();
+
+func spawn_book():
+	var enemy = Area2D.new();
 	var book = Sprite.new();
-	book.set_script(load('src/Book.gd'));
+	enemy.set_script(load('src/Book.gd'));
 	var image = load("resources/book.png");
 	book.texture = image;
 	book.offset = Vector2(-21,-26);
@@ -25,5 +37,15 @@ func _on_button_pressed():
 	book.add_child(leg1);
 	book.add_child(leg2);
 
-	add_child(book);
+	var collision = CollisionShape2D.new();
+	var rect = RectangleShape2D.new();
+	rect.extents = Vector2(40,50);
+	collision.shape = rect;
+
+	enemy.add_child(collision);
+	enemy.add_child(book);
+
+	enemy.add_to_group('enemies');
+
+	add_child(enemy);
 	
