@@ -3,7 +3,7 @@
 [ext_resource path="res://Book.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Projectile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Main.gd" type="Script" id=3]
-[ext_resource path="res://src/Catapult.gd" type="Script" id=4]
+[ext_resource path="res://src/yeet.gd" type="Script" id=4]
 [ext_resource path="res://resources/House_side.png" type="Texture" id=5]
 [ext_resource path="res://resources/House.png" type="Texture" id=6]
 

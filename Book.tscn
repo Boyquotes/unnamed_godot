@@ -26,3 +26,9 @@ offset = Vector2( 5, 28 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( -140.308, -70.9957 )
+points = PoolVector2Array( 100, 10, 180, 10 )
+width = 5.0
+default_color = Color( 0, 0.701961, 0, 1 )
