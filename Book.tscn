@@ -32,3 +32,4 @@ position = Vector2( -140.308, -70.9957 )
 points = PoolVector2Array( 100, 10, 180, 10 )
 width = 5.0
 default_color = Color( 0, 0.701961, 0, 1 )
+[connection signal="area_entered" from="." to="." method="_on_Door_area_entered"]

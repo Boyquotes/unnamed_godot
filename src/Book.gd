@@ -13,8 +13,7 @@ func _ready():
 	hp = get_children()[2];
 
 func _process(_delta):
-	self.translate(Vector2(-1,0));
-
+	self.translate(Vector2(-5,0));
 	time += 1;
 	var movement = Vector2(0, sin(0.5 * time));
 	for child in get_children()[0].get_children():
@@ -23,7 +22,7 @@ func _process(_delta):
 
 func take_damage(damage):
 	health -= damage;
-	if(damage > 0):
+	if damage > 0:
 		if !hp_damage:
 			hp_damage = Line2D.new();
 			hp_damage.width = 5;
@@ -42,3 +41,8 @@ func die():
 		hp.modulate.a = opacity
 		yield(get_tree(), "idle_frame");
 	self.queue_free();
+
+func _on_Door_area_entered(area):
+	if area.is_in_group('door'):
+		set_process(false);
+		area.get_parent().break_down();

@@ -1,10 +1,15 @@
 extends Sprite
 
 var active = false;
+var door : Area2D;
+var health = 20
+var hp;
+var hp_damage;
 export (PackedScene) var Projectile;
 
-func _process(_delta):
-	pass;
+func _ready():
+	door = get_child(2);
+	hp = get_child(3);
 
 func _input(_event):
 	if !active && Input.is_action_pressed("mouse_click"):
@@ -35,3 +40,35 @@ func create_projectile(resource, damage):
 	var mouse = get_global_mouse_position();
 	projectile.set_init_values(randi() % 8 + 2, mouse, damage);
 	return projectile;
+
+func break_down():
+	var time = 0;
+	var sprite : Sprite = door.get_child(0);
+	while door && door.get_overlapping_areas().size() > 0:
+		time += 1;
+		var movement = Vector2(0.6 * sin(time), 0.5 * sin(time));
+		sprite.translate(movement);
+		yield(get_tree(), "idle_frame");
+		if time % 60 == 0:
+			take_damage();
+	
+	if !door:
+		get_parent().set_process(false);
+		for enemy in get_tree().get_nodes_in_group('enemies'):
+			enemy.die();
+
+func take_damage():
+	health -= 1;
+	if !hp_damage:
+		hp_damage = Line2D.new();
+		hp_damage.width = 15;
+		hp_damage.default_color = Color(1,0,0);
+		hp_damage.points = [Vector2(70,-320), Vector2(70,-320)];
+		hp.add_child(hp_damage);
+	hp_damage.points[1] = Vector2(min(300, 70 + (11.5 * (20 - health))), -320);
+	if health <= 0:
+		while door.modulate.a > 0:
+			var opacity = door.modulate.a - 0.1;
+			door.modulate.a = opacity
+			yield(get_tree(), "idle_frame");
+		door.queue_free();

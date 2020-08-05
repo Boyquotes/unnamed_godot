@@ -1,5 +1,7 @@
 extends Node2D
 
+var level = 0;
+var level_spawned = [15];
 var spawn_time = 10;
 var game_time = 0
 var spawned = 0;
@@ -8,7 +10,7 @@ export (PackedScene) var Book;
 func _process(_delta):
 	game_time += 1
 	spawn_time -= 1
-	if spawn_time <= 0 && spawned < 15:
+	if spawn_time <= 0 && spawned < level_spawned[level]:
 		spawn_book();
 		spawn_time = max(80, 500 - (0.2 * game_time));
 		print(spawn_time);
@@ -23,4 +25,11 @@ func spawn_book():
 	enemy.add_to_group('enemies');
 
 	add_child(enemy);
+
+func finish_level():
+	var label = Label.new();
+	label.text = "You win!";
 	
+	level += 1;
+	spawned = 0;
+	game_time = 0;
