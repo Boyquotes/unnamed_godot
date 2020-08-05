@@ -10,6 +10,6 @@ func _process(_delta):
 
 	time += 1;
 	var movement = Vector2(0, sin(time));
-	for child in get_children()[1].get_children():
+	for child in get_children()[0].get_children():
 		child.translate(movement);
 		movement = movement * -1
