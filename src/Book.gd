@@ -1,4 +1,4 @@
-extends Area2D
+extends Monster
 
 var time = 0;
 var health = 10;
@@ -9,14 +9,14 @@ var hp_damage;
 
 func _ready():
 	monitorable = true;
-	sprite = get_children()[0];
-	hp = get_children()[2];
+	sprite = get_child(0);
+	hp = get_child(2);
 
 func _process(_delta):
-	self.translate(Vector2(-5,0));
+	self.translate(Vector2(-1,0));
 	time += 1;
 	var movement = Vector2(0, sin(0.5 * time));
-	for child in get_children()[0].get_children():
+	for child in get_child(0).get_children():
 		child.translate(movement);
 		movement = movement * -1
 
@@ -41,8 +41,3 @@ func die():
 		hp.modulate.a = opacity
 		yield(get_tree(), "idle_frame");
 	self.queue_free();
-
-func _on_Door_area_entered(area):
-	if area.is_in_group('door'):
-		set_process(false);
-		area.get_parent().break_down();

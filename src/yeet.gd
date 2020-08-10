@@ -41,21 +41,23 @@ func create_projectile(resource, damage):
 	projectile.set_init_values(randi() % 8 + 2, mouse, damage);
 	return projectile;
 
-func break_down():
-	var time = 0;
-	var sprite : Sprite = door.get_child(0);
-	while door && door.get_overlapping_areas().size() > 0:
-		time += 1;
-		var movement = Vector2(0.6 * sin(time), 0.5 * sin(time));
-		sprite.translate(movement);
-		yield(get_tree(), "idle_frame");
-		if time % 60 == 0:
-			take_damage();
-	
-	if !door:
-		get_parent().set_process(false);
-		for enemy in get_tree().get_nodes_in_group('enemies'):
-			enemy.die();
+func _on_Door_area_entered(area):
+	if area.is_in_group('enemies'):
+		area.set_process(false);
+		var time = 0;
+		var sprite : Sprite = door.get_child(0);
+		while door && door.get_overlapping_areas().size() > 0:
+			time += 1;
+			var movement = Vector2(0.6 * sin(time), 0.5 * sin(time));
+			sprite.translate(movement);
+			yield(get_tree(), "idle_frame");
+			if time % 60 == 0:
+				take_damage();
+		
+		if !door:
+			get_parent().set_process(false);
+			for enemy in get_tree().get_nodes_in_group('enemies'):
+				enemy.die();
 
 func take_damage():
 	health -= 1;

@@ -10,10 +10,11 @@ export (PackedScene) var Book;
 func _process(_delta):
 	game_time += 1
 	spawn_time -= 1
-	if spawn_time <= 0 && spawned < level_spawned[level]:
-		spawn_book();
-		spawn_time = max(80, 500 - (0.2 * game_time));
-		print(spawn_time);
+	match level:
+		0:
+			if spawn_time <= 0 && spawned < level_spawned[level]:
+				spawn_book();
+				spawn_time = max(80, 500 - (0.2 * game_time));
 
 func spawn_book():
 	spawned += 1;
