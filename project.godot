@@ -15,7 +15,7 @@ _global_script_classes=[ {
 "path": "res://src/classes/monster.gd"
 } ]
 _global_script_class_icons={
-"Monster": ""
+"Monster": "res://icon.png"
 }
 
 [application]
@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="Unnamed"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
+
+[debug]
+
+settings/fps/force_fps=60
 
 [display]
 
